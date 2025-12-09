@@ -5,7 +5,7 @@ app = FastAPI()
 
 @app.get("/")
 def home():
-    return {"message": "RemoteRig AI Support Agent is online. Use /docs to test the API."}
+    return {"message": "Your RemoteRig AI Support Agent is online. Use /docs to test the API."}
 
 class Message(BaseModel):
     text: str
