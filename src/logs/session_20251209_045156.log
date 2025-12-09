@@ -1,0 +1,24 @@
+=== New session started ===
+
+USER_ISSUE: my lithium battery isn't charging in my car, I have a dc-2-dc charger and solar panels
+CLASSIFICATION: {'raw_text': '```json\n{\n  "category": "configuration_or_setup",\n  "explanation": "The issue relates to the setup and configuration of the charging system involving a lithium battery, a DC-DC charger, and solar panels, which affects the battery charging process."\n}\n```', 'error': 'Could not parse JSON from model response.'}
+TROUBLESHOOTING_PLAN:
+```markdown
+**1. Empathetic summary:**  
+It sounds frustrating that your lithium battery isn’t charging properly despite having a DC-DC charger and solar panels set up. Let’s work through some steps to identify what might be causing this.
+
+**2. Troubleshooting steps:**  
+- Verify all wiring connections between the battery, DC-DC charger, and solar panels are secure and correctly installed according to the manufacturer’s instructions.  
+- Check the DC-DC charger’s input and output voltages with a multimeter to confirm it is receiving power and delivering the correct charging voltage to the battery.  
+- Inspect the solar panels for proper operation: ensure they are clean, oriented correctly, and producing expected voltage/current.  
+- Confirm the lithium battery’s state of charge and health using a battery monitor or compatible diagnostic tool.  
+- Review the DC-DC charger’s configuration settings to ensure it is programmed for lithium battery charging profiles.  
+- Look for any error indicators or fault codes on the DC-DC charger or battery management system.
+
+**3. Follow-up questions:**  
+- What make and model are your lithium battery, DC-DC charger, and solar panels?  
+- Have you recently changed or installed any components in this system?  
+- Are there any error lights or messages displayed on the charger or battery management system?
+
+**4. Recommendation:**  
+If the above steps don’t resolve the issue or if you encounter complex error codes, escalate to the engineering team specializing in battery charging systems for deeper diagnostics and configuration support.
