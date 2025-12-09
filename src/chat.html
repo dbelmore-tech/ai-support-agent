@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>RemoteRig AI Support Agent</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+        #messages { border: 1px solid #ccc; padding: 10px; height: 300px; overflow-y: auto; margin-bottom: 20px; }
+        #inputRow { display: flex; gap: 10px; }
+        #userInput { flex: 1; padding: 10px; font-size: 16px; }
+        #sendBtn { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2>RemoteRig AI Support Agent</h2>
+    <div id="messages"></div>
+
+    <div id="inputRow">
+        <input id="userInput" type="text" placeholder="Type your message…" />
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById("userInput");
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Display the user's message
+            addMessage("You", message);
+
+            // Call the backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: message })
+            });
+
+            const data = await response.json();
+            addMessage("AI", data.response);
+
+            input.value = "";
+        }
+
+        function addMessage(sender, text) {
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        document.getElementById("sendBtn").onclick = sendMessage;
+        document.getElementById("userInput").addEventListener("keypress", e => {
+            if (e.key === "Enter") sendMessage();
+        });
+    </script>
+
+</body>
+</html>
