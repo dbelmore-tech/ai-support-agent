@@ -17,6 +17,14 @@
             color: white;
             text-shadow: 0px 2px 4px rgba(0,0,0,0.6);
         }
+        #startupNotice {
+            font-size: 12px;
+            color: white;
+            opacity: 0.9;
+            margin-top: 5px;
+            text-align: center;
+            text-shadow: 0px 1px 3px rgba(0,0,0,0.5);
+        }
         #messages { 
             border: 1px solid rgba(255,255,255,0.4); 
             padding: 10px; 
@@ -73,6 +81,9 @@
         <input id="userInput" type="text" placeholder="Type your message…" />
         <button id="sendBtn">Send</button>
     </div>
+    <p id="startupNotice">
+        ⚠️ Note: The first response may take a few extra seconds in this testing environment while the AI warms up.
+    </p>
 
     <script>
 
