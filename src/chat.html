@@ -8,6 +8,7 @@
         #inputRow { display: flex; gap: 10px; }
         #userInput { flex: 1; padding: 10px; font-size: 16px; }
         #sendBtn { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+        #thinking { font-style: italic; color: gray; display: none; margin-top: 5px; }
     </style>
 </head>
 <body>
@@ -20,14 +21,23 @@
         <button id="sendBtn">Send</button>
     </div>
 
+    <p id="thinking">AI is thinking…</p>
+
     <script>
         async function sendMessage() {
             const input = document.getElementById("userInput");
             const message = input.value.trim();
             if (!message) return;
 
-            // Display the user's message
+            // Immediately clear input to avoid confusion
+            input.value = "";
+
+            // Show user's message immediately
             addMessage("You", message);
+
+            // Show thinking indicator and disable send button
+            document.getElementById("thinking").style.display = "block";
+            document.getElementById("sendBtn").disabled = true;
 
             // Call the backend
             const response = await fetch("/chat", {
@@ -37,9 +47,13 @@
             });
 
             const data = await response.json();
-            addMessage("AI", data.response);
 
-            input.value = "";
+            // Hide thinking indicator + re-enable send button
+            document.getElementById("thinking").style.display = "none";
+            document.getElementById("sendBtn").disabled = false;
+
+            // Display AI response
+            addMessage("AI", data.response);
         }
 
         function addMessage(sender, text) {
@@ -49,6 +63,7 @@
         }
 
         document.getElementById("sendBtn").onclick = sendMessage;
+
         document.getElementById("userInput").addEventListener("keypress", e => {
             if (e.key === "Enter") sendMessage();
         });
