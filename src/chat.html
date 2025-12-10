@@ -3,13 +3,25 @@
 <head>
     <title>RemoteRig AI Support Agent</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; }
+        body { 
+            font-family: Arial, sans-serif; 
+            max-width: 600px; 
+            margin: 40px auto;
+            padding: 10px;
+
+            /* RemoteRig brand gradient */
+            background: linear-gradient(135deg, #4fc3f7 0%, #2e7d34 60%);
+            background-attachment: fixed;  /* smooth on mobile */
+        }
         #messages { 
-            border: 1px solid #ccc; 
+            border: 1px solid rgba(255,255,255,0.4); 
             padding: 10px; 
-            height: 450px;   /* bigger chat window */
+            height: 450px;
             overflow-y: auto; 
-            margin-bottom: 20px; 
+            margin-bottom: 20px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.60);
+            backdrop-filter: blur(3px);
         }
         #inputRow { display: flex; gap: 10px; }
         #userInput { flex: 1; padding: 10px; font-size: 16px; }
