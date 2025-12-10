@@ -44,7 +44,7 @@
 
         function addMessage(sender, text) {
             const messagesDiv = document.getElementById("messages");
-            messagesDiv.innerHTML += `<p><strong>${sender}:</strong> ${text}</p>`;
+            messagesDiv.innerHTML += `<p><strong>${sender}:</strong><br>${text.replace(/\n/g, "<br>")}</p>`;
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
 
