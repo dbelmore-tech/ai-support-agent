@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+from agent_core import run_agent
 import os
 
 app = FastAPI()
@@ -25,4 +26,5 @@ class Message(BaseModel):
 
 @app.post("/chat")
 def chat_endpoint(message: Message):
-    return {"response": "API server is running. You sent: " + message.text}
+    reply = run_agent(message.text)
+    return {"response": reply}
