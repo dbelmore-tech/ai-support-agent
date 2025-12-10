@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from agent_core import run_agent
+from src.agent_core import run_agent
 import os
 
 app = FastAPI()
