@@ -9,6 +9,26 @@
         #userInput { flex: 1; padding: 10px; font-size: 16px; }
         #sendBtn { padding: 10px 20px; font-size: 16px; cursor: pointer; }
         #thinking { font-style: italic; color: gray; display: none; margin-top: 5px; }
+.message {
+    max-width: 80%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 12px;
+    line-height: 1.4;
+    word-wrap: break-word;
+}
+
+.user {
+    background-color: #d0ebff;
+    margin-left: auto;
+    text-align: right;
+}
+
+.ai {
+    background-color: #f1f3f5;
+    margin-right: auto;
+}
+
     </style>
 </head>
 <body>
@@ -57,10 +77,19 @@
         }
 
         function addMessage(sender, text) {
-            const messagesDiv = document.getElementById("messages");
-            messagesDiv.innerHTML += `<p><strong>${sender}:</strong><br>${text.replace(/\n/g, "<br>")}</p>`;
+        const messagesDiv = document.getElementById("messages");
+        const bubbleClass = sender === "You" ? "message user" : "message ai";
+
+            messagesDiv.innerHTML += `
+                <div class="${bubbleClass}">
+                    <strong>${sender}:</strong><br>
+                    ${text.replace(/\n/g, "<br>")}
+                </div>
+            `;
+
             messagesDiv.scrollTop = messagesDiv.scrollHeight;
         }
+
 
         document.getElementById("sendBtn").onclick = sendMessage;
 
