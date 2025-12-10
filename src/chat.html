@@ -26,3 +26,118 @@
         }
 
         .user {
+            background-color: #d0ebff;
+            margin-left: auto;
+            text-align: right;
+        }
+
+        .ai {
+            background-color: #f1f3f5;
+            margin-right: auto;
+        }
+
+        /* AI typing indicator bubble */
+        .typing {
+            background-color: #f1f3f5;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 12px;
+            font-style: italic;
+            color: gray;
+            max-width: 60%;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>RemoteRig AI Support Agent</h2>
+    <div id="messages"></div>
+
+    <div id="inputRow">
+        <input id="userInput" type="text" placeholder="Type your message…" />
+        <button id="sendBtn">Send</button>
+    </div>
+
+    <script>
+
+        /* -------------------------------------------
+           AI "thinking…" bubble logic
+        ------------------------------------------- */
+        function showThinking() {
+            const messagesDiv = document.getElementById("messages");
+            messagesDiv.innerHTML += `
+                <div id="thinkingBubble" class="typing">
+                    AI is thinking…
+                </div>
+            `;
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        function hideThinking() {
+            const bubble = document.getElementById("thinkingBubble");
+            if (bubble) bubble.remove();
+        }
+
+        /* -------------------------------------------
+           Main sendMessage() logic
+        ------------------------------------------- */
+        async function sendMessage() {
+            const input = document.getElementById("userInput");
+            const message = input.value.trim();
+            if (!message) return;
+
+            input.value = "";
+
+            // show user bubble
+            addMessage("You", message);
+
+            // show AI typing bubble + disable send
+            showThinking();
+            document.getElementById("sendBtn").disabled = true;
+
+            // send to backend
+            const response = await fetch("/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: message })
+            });
+
+            const data = await response.json();
+
+            // hide typing bubble + re-enable send
+            hideThinking();
+            document.getElementById("sendBtn").disabled = false;
+
+            // show AI bubble
+            addMessage("AI", data.response);
+        }
+
+        /* -------------------------------------------
+           Add chat bubble to UI
+        ------------------------------------------- */
+        function addMessage(sender, text) {
+            const messagesDiv = document.getElementById("messages");
+            const bubbleClass = sender === "You" ? "message user" : "message ai";
+
+            messagesDiv.innerHTML += `
+                <div class="${bubbleClass}">
+                    <strong>${sender}:</strong><br>
+                    ${text.replace(/\n/g, "<br>")}
+                </div>
+            `;
+
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        /* -------------------------------------------
+           Event bindings
+        ------------------------------------------- */
+        document.getElementById("sendBtn").onclick = sendMessage;
+        document.getElementById("userInput").addEventListener("keypress", e => {
+            if (e.key === "Enter") sendMessage();
+        });
+
+    </script>
+
+</body>
+</html>
